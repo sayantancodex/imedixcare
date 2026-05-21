@@ -14,6 +14,7 @@ public class Patient {
     private int assignedDoctorId;
     private String investigationType;
     private String testStatus;
+    private String assignedDoctorName;
 
     // Getters and Setters
     public int getId() { return id; }
@@ -38,4 +39,6 @@ public class Patient {
     public void setInvestigationType(String investigationType) { this.investigationType = investigationType; }
     public String getTestStatus() { return testStatus; }
     public void setTestStatus(String testStatus) { this.testStatus = testStatus; }
+    public String getAssignedDoctorName() { return assignedDoctorName; }
+    public void setAssignedDoctorName(String assignedDoctorName) { this.assignedDoctorName = assignedDoctorName; }
 }

@@ -3,6 +3,8 @@ package com.imedixcare.dao;
 import com.imedixcare.config.DBConnection;
 import com.imedixcare.model.User;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     public User login(String username, String password) {
@@ -47,5 +49,26 @@ public class UserDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<User> getDoctors() {
+        List<User> doctors = new ArrayList<>();
+        String sql = "SELECT * FROM users WHERE role IN ('DOCTOR', 'PSYCHOLOGIST') ORDER BY full_name";
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setFullName(rs.getString("full_name"));
+                user.setRole(rs.getString("role"));
+                user.setEmail(rs.getString("email"));
+                doctors.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return doctors;
     }
 }
